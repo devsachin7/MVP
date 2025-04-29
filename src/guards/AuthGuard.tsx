@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import { useMsal } from "@azure/msal-react";
-import { InteractionStatus } from "@azure/msal-browser";
+import React, { useEffect } from 'react';
+import { useMsal } from '@azure/msal-react';
+import { InteractionStatus } from '@azure/msal-browser';
 
 const AuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { instance, inProgress, accounts } = useMsal();
@@ -12,7 +12,7 @@ const AuthGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [accounts, inProgress, instance]);
 
   if (accounts.length === 0) {
-    return null; // Show loader or splash screen if needed
+    return <div>Loading...</div>;
   }
 
   return <>{children}</>;
