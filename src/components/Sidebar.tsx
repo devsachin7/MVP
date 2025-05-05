@@ -1,13 +1,6 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { 
-  HomeIcon, 
-  UsersIcon, 
-  ChartBarIcon, 
-  CogIcon, 
-  ArrowLeftIcon,
-  ArrowRightIcon
-} from '../icons'; // We'll create these icons later
+import React, { useState } from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
+import { ArrowLeftIcon, ArrowRightIcon } from '../icons';
 
 interface SidebarProps {
   isOpen: boolean;
@@ -15,12 +8,15 @@ interface SidebarProps {
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
-  const menuItems = [
-    { name: 'Dashboard', path: '/dashboard', icon: <HomeIcon className="w-5 h-5" /> },
-    { name: 'Users', path: '/dashboard/users', icon: <UsersIcon className="w-5 h-5" /> },
-    { name: 'Analytics', path: '/dashboard/analytics', icon: <ChartBarIcon className="w-5 h-5" /> },
-    { name: 'Settings', path: '/dashboard/settings', icon: <CogIcon className="w-5 h-5" /> },
-  ];
+  const [safetyOpen, setSafetyOpen] = useState(true);
+  const location = useLocation();
+  // Check if any of the safety audit subroutes are active
+  const isSafetyActive = [
+    '/dashboard/new-safety-audit',
+    '/dashboard/review',
+    '/dashboard/analytics',
+    '/dashboard' // in case index route
+  ].some((path) => location.pathname === path);
 
   return (
     <>
@@ -38,13 +34,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
           isOpen ? 'w-64' : 'w-16'
         } ${isOpen ? 'translate-x-0' : 'translate-x-0'}`}
       >
-        <div className={`flex items-center h-16 px-4 border-b border-gray-200 ${isOpen ? 'justify-between' : 'justify-center'}`}>
-          {isOpen && <div className="text-xl font-bold text-primary">Dashboard</div>}
-          
-          {/* Toggle Button for desktop */}
+        {/* Logo */}
+        <div className="flex items-center h-16 px-4 border-b border-gray-200">
+          {isOpen && (
+            <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" />
+          )}
           <button 
             onClick={toggleSidebar}
-            className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
+            className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 ml-auto"
             aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
           >
             {isOpen ? 
@@ -57,24 +54,65 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         <div className="p-2">
           <nav>
             <ul className="space-y-1">
-              {menuItems.map((item) => (
-                <li key={item.path}>
-                  <NavLink
-                    to={item.path}
-                    className={({ isActive }) => 
-                      `flex items-center py-2 ${isOpen ? 'px-4' : 'px-0 justify-center'} rounded-md transition-colors ${
-                        isActive 
-                          ? 'bg-primary/10 text-primary font-medium' 
-                          : 'text-gray-700 hover:bg-gray-100'
-                      }`
-                    }
-                    title={!isOpen ? item.name : undefined}
-                  >
-                    <span className={`inline-flex ${isOpen ? 'mr-3' : 'mr-0'} text-current`}>{item.icon}</span>
-                    {isOpen && <span>{item.name}</span>}
-                  </NavLink>
-                </li>
-              ))}
+              {/* Safety Audit Dropdown */}
+              <li>
+                <button
+                  className={`flex items-center w-full py-2 ${isOpen ? 'px-4' : 'justify-center'} rounded-md text-base font-medium transition-colors ${
+                    isSafetyActive ? 'bg-custom-gradient text-white' : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                  onClick={() => isOpen && setSafetyOpen(!safetyOpen)}
+                >
+                  <span className={isOpen ? 'mr-3' : ''}>🛡️</span>
+                  {isOpen && <span>Safety Audit</span>}
+                  {isOpen && <span className="ml-auto">{safetyOpen ? '▾' : '▸'}</span>}
+                </button>
+                {isOpen && safetyOpen && (
+                  <ul className="ml-6 mt-1 space-y-1">
+                    <li>
+                      <NavLink
+                        to="/dashboard/new-safety-audit"
+                        className={({ isActive }) =>
+                          `block py-2 px-4 rounded-md text-base transition-colors ${
+                            isActive
+                              ? 'bg-gray-100 text-gray-900 font-semibold'
+                              : 'text-gray-800 font-normal hover:bg-gray-100'
+                          }`
+                        }
+                      >
+                        New Safety Audit
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/dashboard/review"
+                        className={({ isActive }) =>
+                          `block py-2 px-4 rounded-md text-base transition-colors ${
+                            isActive
+                              ? 'bg-gray-100 text-gray-900 font-semibold'
+                              : 'text-gray-800 font-normal hover:bg-gray-100'
+                          }`
+                        }
+                      >
+                        Review
+                      </NavLink>
+                    </li>
+                    <li>
+                      <NavLink
+                        to="/dashboard/analytics"
+                        className={({ isActive }) =>
+                          `block py-2 px-4 rounded-md text-base transition-colors ${
+                            isActive
+                              ? 'bg-gray-100 text-gray-900 font-semibold'
+                              : 'text-gray-800 font-normal hover:bg-gray-100'
+                          }`
+                        }
+                      >
+                        Analytics
+                      </NavLink>
+                    </li>
+                  </ul>
+                )}
+              </li>
             </ul>
           </nav>
         </div>

@@ -8,10 +8,10 @@ const Footer: React.FC = () => {
       <div className="flex flex-col md:flex-row justify-between items-center">
         <div className="mb-3 md:mb-0">
           <p className="text-sm text-gray-500">
-            &copy; {currentYear} React Auth Dashboard. All rights reserved.
+            &copy; {currentYear} McCarthy Vaughn Partnership. All rights reserved.
           </p>
         </div>
-        <div className="flex space-x-6">
+        {/* <div className="flex space-x-6">
           <a 
             href="#" 
             className="text-sm text-gray-500 hover:text-primary transition-colors duration-200"
@@ -30,7 +30,7 @@ const Footer: React.FC = () => {
           >
             Contact
           </a>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

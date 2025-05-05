@@ -1,0 +1,34 @@
+import React from 'react';
+import Card from '../components/Card';
+
+const NewSafetyAudit: React.FC = () => {
+  return (
+    <div className="py-6">
+      <Card title="New Safety Audit">
+        <h6 className="text-base font-semibold text-gray-800 mb-4">
+          Beginning of Safety Audit
+        </h6>
+        <ul className="list-disc list-inside text-sm text-gray-700 leading-relaxed space-y-2">
+          <li>Commit a maximum of one hour to perform a Safety Audit. Smaller projects may take less time.</li>
+          <li>All project leadership must participate, including Superintendents, Project Managers, Assistant Superintendents, Project Engineers, Quality, and Safety personnel.</li>
+          <li>Use any method (iPad, iPhone, or pen and paper) to record observations and severity.</li>
+          <li>If using pen and paper, complete the Safety Audit Form after the walkthrough.</li>
+          <li>Each of the 15 categories in the form includes dropdowns for specific violations and responsible parties.</li>
+          <li>Assign a severity level to each violation.</li>
+          <li>If the observed violation isn't listed, select "Other" and describe it in the Notes area.</li>
+          <li>Use the form to note if work was stopped due to IDLH (Immediately Dangerous to Life or Health) conditions.</li>
+          <li>The audit checks for both compliance (e.g., rigging inspection) and unsafe conditions/acts.</li>
+          <li>Examples:
+            <ul className="list-disc list-inside ml-5">
+              <li>Unsafe condition: tripping hazard like a board in a walkway.</li>
+              <li>Unsafe act: someone walking over that board.</li>
+            </ul>
+          </li>
+          <li>Special attention is given to risk areas like lower back strain, line of fire, and pinch points.</li>
+        </ul>
+      </Card>
+    </div>
+  );
+};
+
+export default NewSafetyAudit; 
