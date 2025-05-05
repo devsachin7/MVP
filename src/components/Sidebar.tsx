@@ -35,13 +35,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         } ${isOpen ? 'translate-x-0' : 'translate-x-0'}`}
       >
         {/* Logo */}
-        <div className="flex items-center h-16 px-4 border-b border-gray-200">
-          {isOpen && (
-            <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" />
+        <div className={`flex items-center h-16 px-4 border-b border-gray-200 ${isOpen ? '' : 'justify-center'}`}>
+          {isOpen ? (
+            <>
+              <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" />
+            </>
+          ) : (
+            <img src="/logo_icon.png" alt="Logo Icon" className="h-8 w-auto" />
           )}
           <button 
             onClick={toggleSidebar}
-            className="p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 ml-auto"
+            className={`p-1 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100 ml-auto ${isOpen ? '' : ''}`}
             aria-label={isOpen ? "Collapse sidebar" : "Expand sidebar"}
           >
             {isOpen ? 
