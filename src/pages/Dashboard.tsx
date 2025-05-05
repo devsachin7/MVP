@@ -6,50 +6,50 @@ import { getUserInfo } from '../utils/auth';
 
 const Dashboard: React.FC = () => {
   const { accounts, instance } = useMsal();
-  
+
   // Process any redirect responses to ensure tokens are captured
   useEffect(() => {
     instance.handleRedirectPromise().catch(error => {
       console.error("Error handling redirect in Dashboard:", error);
     });
   }, [instance]);
-  
+
   // Get user info from our local storage helper
   const userInfo = getUserInfo();
-  
+
   // Fallback to MSAL accounts if local storage doesn't have the data
-  const userName = userInfo?.name || 
-                 accounts[0]?.idTokenClaims?.given_name as string || 
-                 (accounts[0]?.idTokenClaims?.name as string) || 
-                 accounts[0]?.name || 
-                 'User';
-  
+  const userName = userInfo?.name ||
+    accounts[0]?.idTokenClaims?.given_name as string ||
+    (accounts[0]?.idTokenClaims?.name as string) ||
+    accounts[0]?.name ||
+    'User';
+
   // Log user info for debugging
   useEffect(() => {
     console.log("Dashboard rendered with user:", userName);
     console.log("Accounts:", accounts);
   }, [accounts, userName]);
-  
+
   const [isLoading, setIsLoading] = useState(true);
   const [summaryData, setSummaryData] = useState<DashboardSummary | null>(null);
   const [chartData, setChartData] = useState<ChartData | null>(null);
   const [activities, setActivities] = useState<RecentActivity[]>([]);
   const [error, setError] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
         setIsLoading(true);
         setError(null);
-        
+
         // Fetch dashboard summary data
         const summaryResponse = await dashboardApi.getSummary();
         setSummaryData(summaryResponse.data);
-        
+
         // Fetch chart data
         const chartResponse = await dashboardApi.getChartData();
         setChartData(chartResponse.data);
-        
+
         // Fetch recent activities
         const activitiesResponse = await dashboardApi.getRecentActivity();
         setActivities(activitiesResponse.data);
@@ -60,10 +60,10 @@ const Dashboard: React.FC = () => {
         setIsLoading(false);
       }
     };
-    
+
     fetchDashboardData();
   }, []);
-  
+
   if (isLoading) {
     return (
       <div className="h-full flex items-center justify-center p-4">
@@ -74,7 +74,7 @@ const Dashboard: React.FC = () => {
       </div>
     );
   }
-  
+
   if (error) {
     return (
       <div className="h-full flex items-center justify-center p-4">
@@ -91,7 +91,7 @@ const Dashboard: React.FC = () => {
       </div>
     );
   }
-  
+
   return (
     <div className="py-6">
       <div className="mb-6">
@@ -102,7 +102,7 @@ const Dashboard: React.FC = () => {
           Here's what's happening with your account today.
         </p>
       </div>
-      
+
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         {summaryData && (
@@ -117,7 +117,7 @@ const Dashboard: React.FC = () => {
                 <span>+12% from last month</span>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
               <h3 className="text-gray-500 font-medium text-sm mb-2">Active Users</h3>
               <p className="text-3xl font-bold text-primary">{summaryData.activeUsers.toLocaleString()}</p>
@@ -128,7 +128,7 @@ const Dashboard: React.FC = () => {
                 <span>+5% from last month</span>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
               <h3 className="text-gray-500 font-medium text-sm mb-2">Total Revenue</h3>
               <p className="text-3xl font-bold text-primary">
@@ -141,7 +141,7 @@ const Dashboard: React.FC = () => {
                 <span>+8% from last month</span>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
               <h3 className="text-gray-500 font-medium text-sm mb-2">Total Orders</h3>
               <p className="text-3xl font-bold text-primary">{summaryData.totalOrders.toLocaleString()}</p>
@@ -155,23 +155,61 @@ const Dashboard: React.FC = () => {
           </>
         )}
       </div>
-      
-      {/* Chart Section */}
-      <div className="bg-white rounded-lg shadow-sm p-6 mb-8 border border-gray-100">
-        <h2 className="text-lg font-medium text-gray-900 mb-4">Monthly Revenue</h2>
-        <div className="h-80 flex items-center justify-center border-t border-gray-100 pt-4">
-          {chartData ? (
-            <div className="w-full h-full">
-              <p className="text-center text-gray-500 mt-20">
-                Chart would be displayed here. Using a chart library like Chart.js or Recharts.
-              </p>
-            </div>
-          ) : (
-            <p className="text-gray-500">No chart data available</p>
-          )}
+
+      <div className="bg-white rounded-lg shadow-sm mb-8 border border-gray-100 overflow-hidden">
+        {/* Header section with gradient */}
+        <div className="bg-custom-gradient px-6 py-4 rounded-t-lg">
+          <h2 className="text-xl font-bold text-white">New Safety Audit</h2>
+        </div>
+
+        {/* Content section */}
+        <div className="p-6">
+          <h6 className="text-base font-semibold text-gray-800 mb-4">
+            Beginning of Safety Audit
+          </h6>
+          <ul className="list-disc list-inside text-sm text-gray-700 leading-relaxed space-y-2">
+            <li>
+              Commit a maximum of one hour to perform a Safety Audit. Smaller projects may take less time.
+            </li>
+            <li>
+              All project leadership must participate, including Superintendents, Project Managers, Assistant Superintendents, Project Engineers, Quality, and Safety personnel.
+            </li>
+            <li>
+              Use any method (iPad, iPhone, or pen and paper) to record observations and severity.
+            </li>
+            <li>
+              If using pen and paper, complete the Safety Audit Form after the walkthrough.
+            </li>
+            <li>
+              Each of the 15 categories in the form includes dropdowns for specific violations and responsible parties.
+            </li>
+            <li>
+              Assign a severity level to each violation.
+            </li>
+            <li>
+              If the observed violation isn't listed, select "Other" and describe it in the Notes area.
+            </li>
+            <li>
+              Use the form to note if work was stopped due to IDLH (Immediately Dangerous to Life or Health) conditions.
+            </li>
+            <li>
+              The audit checks for both compliance (e.g., rigging inspection) and unsafe conditions/acts.
+            </li>
+            <li>
+              Examples:
+              <ul className="list-disc list-inside ml-5">
+                <li>Unsafe condition: tripping hazard like a board in a walkway.</li>
+                <li>Unsafe act: someone walking over that board.</li>
+              </ul>
+            </li>
+            <li>
+              Special attention is given to risk areas like lower back strain, line of fire, and pinch points.
+            </li>
+          </ul>
         </div>
       </div>
-      
+
+
       {/* Recent Activity */}
       <div className="bg-white rounded-lg shadow-sm p-6 border border-gray-100">
         <h2 className="text-lg font-medium text-gray-900 mb-4">Recent Activity</h2>

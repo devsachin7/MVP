@@ -16,6 +16,9 @@ export default {
           secondary: "#6B7280",
         },
       },
+      backgroundImage: {
+        'custom-gradient': 'linear-gradient(90deg, #851A31 0%, #DE1E37 50%, #DE1E37 100%)',
+      },
     },
   },
   plugins: [],
