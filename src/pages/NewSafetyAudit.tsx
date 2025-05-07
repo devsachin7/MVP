@@ -1,10 +1,16 @@
 import React from 'react';
 import Card from '../components/Card';
+import { useNavigate } from 'react-router-dom';
 
-const NewSafetyAudit: React.FC = () => {
+const NewSafetyAudit1: React.FC = () => {
+  const navigate = useNavigate();
+  const handleGo = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate('/safety-audit/new-safety-audit-2');
+  };
   return (
     <div className="py-6">
-      <Card title="New Safety Audit">
+      <Card title="New Safety Audit 1">
         <h6 className="text-base font-semibold text-gray-800 mb-4">
           Beginning of Safety Audit
         </h6>
@@ -28,7 +34,7 @@ const NewSafetyAudit: React.FC = () => {
         </ul>
 
         {/* Form Section */}
-        <form className="mt-8 space-y-6">
+        <form className="mt-8 space-y-6" onSubmit={handleGo}>
           <div className="sm:flex sm:items-center gap-x-3 w-full">
             <label htmlFor="project" className="block min-w-[120px] text-sm font-semibold text-gray-700 mb-1 sm:mb-0">Project</label>
             <input
@@ -65,4 +71,4 @@ const NewSafetyAudit: React.FC = () => {
   );
 };
 
-export default NewSafetyAudit; 
+export default NewSafetyAudit1; 

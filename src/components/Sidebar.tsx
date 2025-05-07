@@ -13,7 +13,7 @@ const sidebarSections = [
     icon: 'icon-LE-icon text-xl',
     basePath: '/safety-audit',
     subItems: [
-      { label: 'New Safety Audit', path: '/safety-audit/new-safety-audit' },
+      { label: 'New Safety Audit', path: '/safety-audit/new-safety-audit-1' },
       { label: 'Review', path: '/safety-audit/review' },
       { label: 'Analytics', path: '/safety-audit/analytics' },
     ],
@@ -42,8 +42,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
 
   // Helper to check if any subroute is active for a section
-  const isSectionActive = (section: typeof sidebarSections[0]) =>
-    section.subItems.some(item => location.pathname === item.path);
+  const isSectionActive = (section: typeof sidebarSections[0]) => {
+    // For Safety Audit, match any /safety-audit/* route
+    if (section.basePath === '/safety-audit') {
+      return location.pathname.startsWith('/safety-audit');
+    }
+    // For other sections, match subItems
+    return section.subItems.some(item => location.pathname === item.path);
+  };
 
   return (
     <>
