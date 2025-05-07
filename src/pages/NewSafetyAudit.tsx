@@ -26,6 +26,40 @@ const NewSafetyAudit: React.FC = () => {
           </li>
           <li>Special attention is given to risk areas like lower back strain, line of fire, and pinch points.</li>
         </ul>
+
+        {/* Form Section */}
+        <form className="mt-8 space-y-6">
+          <div className="sm:flex sm:items-center gap-x-3 w-full">
+            <label htmlFor="project" className="block min-w-[120px] text-sm font-semibold text-gray-700 mb-1 sm:mb-0">Project</label>
+            <input
+              id="project"
+              type="text"
+              value="123"
+              disabled
+              className="max-w-xs w-full py-2.5 sm:py-2 px-4 border border-gray-300 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none text-gray-500 bg-gray-100"
+            />
+          </div>
+          <div className="sm:flex sm:items-center gap-x-3 w-full">
+            <label htmlFor="zone" className="block min-w-[120px] text-sm font-semibold text-gray-700 mb-1 sm:mb-0">Select a Zone</label>
+            <select
+              id="zone"
+              className="max-w-xs w-full py-2.5 sm:py-2 px-4 border border-gray-300 rounded-lg sm:text-sm focus:border-blue-500 focus:ring-blue-500"
+              defaultValue=""
+            >
+              <option value="" disabled>Select a zone</option>
+              <option value="zone1">Zone 1</option>
+              <option value="zone2">Zone 2</option>
+            </select>
+          </div>
+          <div className="flex justify-end w-full">
+            <button
+              type="submit"
+              className="px-8 py-2 rounded-md bg-gray-800 text-white font-semibold hover:bg-gray-900 transition-colors shadow"
+            >
+              Go
+            </button>
+          </div>
+        </form>
       </Card>
     </div>
   );
