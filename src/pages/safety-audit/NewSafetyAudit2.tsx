@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Card from '../components/Card';
+import Card from '../../components/Card';
 
 const NewSafetyAudit2: React.FC = () => {
   const [violations, setViolations] = useState([

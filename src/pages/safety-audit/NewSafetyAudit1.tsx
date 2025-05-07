@@ -1,6 +1,6 @@
 import React from 'react';
-import Card from '../components/Card';
 import { useNavigate } from 'react-router-dom';
+import Card from '../../components/Card';
 
 const NewSafetyAudit1: React.FC = () => {
   const navigate = useNavigate();
