@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeftIcon, ArrowRightIcon } from '../icons';
 
 interface SidebarProps {
@@ -40,6 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
     return initial;
   });
   const location = useLocation();
+  const navigate = useNavigate();
 
   // Helper to check if any subroute is active for a section
   const isSectionActive = (section: typeof sidebarSections[0]) => {
@@ -97,7 +98,14 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
                       className={`flex items-center w-full py-2 ${isOpen ? 'px-4' : 'justify-center'} rounded-md text-sm font-medium transition-colors ${
                         sectionActive ? 'bg-custom-gradient text-white' : 'text-gray-700 hover:bg-gray-100'
                       }`}
-                      onClick={() => isOpen && setOpenSections(s => ({ ...s, [section.label]: !s[section.label] }))}
+                      onClick={() => {
+                        if (isOpen) {
+                          if (section.subItems && section.subItems.length > 0) {
+                            navigate(section.subItems[0].path);
+                          }
+                          setOpenSections(s => ({ ...s, [section.label]: true }));
+                        }
+                      }}
                     >
                       <span className={isOpen ? 'mr-3' : ''}>
                         {section.icon ? (

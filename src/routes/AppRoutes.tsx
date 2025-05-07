@@ -4,7 +4,7 @@ import AuthGuard from '../guards/AuthGuard';
 import DashboardLayout from '../layouts/DashboardLayout';
 import PageNotFound from '../components/PageNotFound';
 import NewSafetyAudit1 from '../pages/safety-audit/NewSafetyAudit1';
-import Review from '../pages/Review';
+import Review from '../pages/safety-audit/review';
 import Analytics from '../pages/Analytics';
 import AddNewUser from '../pages/AddNewUser';
 import AllUsers from '../pages/AllUsers';
