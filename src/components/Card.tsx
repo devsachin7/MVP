@@ -10,7 +10,7 @@ interface CardProps {
 const Card: React.FC<CardProps> = ({ title, headerColor = 'bg-custom-gradient', children, className = '' }) => {
   return (
     <div className={`w-full rounded-xl shadow-lg border border-gray-200 bg-white overflow-hidden ${className}`}>
-      <div className={`${headerColor} px-6 py-4 rounded-t-xl`}>
+      <div className={`${headerColor} px-6 py-2 rounded-t-xl`}>
         <h2 className="text-xl font-bold text-white">{title}</h2>
       </div>
       <div className="p-8 text-left">
