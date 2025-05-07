@@ -7,16 +7,43 @@ interface SidebarProps {
   toggleSidebar: () => void;
 }
 
+const sidebarSections = [
+  {
+    label: 'Safety Audit',
+    icon: 'icon-LE-icon text-xl',
+    basePath: '/safety-audit',
+    subItems: [
+      { label: 'New Safety Audit', path: '/safety-audit/new-safety-audit' },
+      { label: 'Review', path: '/safety-audit/review' },
+      { label: 'Analytics', path: '/safety-audit/analytics' },
+    ],
+  },
+  {
+    label: 'Other Module',
+    icon: 'icon-LE-user text-xl',
+    basePath: '/user-management',
+    subItems: [
+      { label: 'Add New User', path: '/user-management/add-new-user' },
+      { label: 'All Users', path: '/user-management/all-users' },
+    ],
+  },
+  // Add more sections as needed
+];
+
 const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
-  const [safetyOpen, setSafetyOpen] = useState(true);
+  const [openSections, setOpenSections] = useState<{ [key: string]: boolean }>(() => {
+    // By default, open all sections
+    const initial: { [key: string]: boolean } = {};
+    sidebarSections.forEach(section => {
+      initial[section.label] = true;
+    });
+    return initial;
+  });
   const location = useLocation();
-  // Check if any of the safety audit subroutes are active
-  const isSafetyActive = [
-    '/dashboard/new-safety-audit',
-    '/dashboard/review',
-    '/dashboard/analytics',
-    '/dashboard' // in case index route
-  ].some((path) => location.pathname === path);
+
+  // Helper to check if any subroute is active for a section
+  const isSectionActive = (section: typeof sidebarSections[0]) =>
+    section.subItems.some(item => location.pathname === item.path);
 
   return (
     <>
@@ -37,9 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         {/* Logo */}
         <div className={`flex items-center h-16 px-4 border-b border-gray-200 ${isOpen ? '' : 'justify-center'}`}>
           {isOpen ? (
-            <>
-              <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" />
-            </>
+            <img src="/logo.png" alt="Logo" className="h-8 w-auto mr-2" />
           ) : (
             <img src="/logo_icon.png" alt="Logo Icon" className="h-8 w-auto" />
           )}
@@ -58,65 +83,49 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar }) => {
         <div className="p-2">
           <nav>
             <ul className="space-y-1">
-              {/* Safety Audit Dropdown */}
-              <li>
-                <button
-                  className={`flex items-center w-full py-2 ${isOpen ? 'px-4' : 'justify-center'} rounded-md text-base font-medium transition-colors ${
-                    isSafetyActive ? 'bg-custom-gradient text-white' : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                  onClick={() => isOpen && setSafetyOpen(!safetyOpen)}
-                >
-                  <span className={isOpen ? 'mr-3' : ''}>🛡️</span>
-                  {isOpen && <span>Safety Audit</span>}
-                  {isOpen && <span className="ml-auto">{safetyOpen ? '▾' : '▸'}</span>}
-                </button>
-                {isOpen && safetyOpen && (
-                  <ul className="ml-6 mt-1 space-y-1">
-                    <li>
-                      <NavLink
-                        to="/dashboard/new-safety-audit"
-                        className={({ isActive }) =>
-                          `block py-2 px-4 rounded-md text-base transition-colors ${
-                            isActive
-                              ? 'bg-gray-100 text-gray-900 font-semibold'
-                              : 'text-gray-800 font-normal hover:bg-gray-100'
-                          }`
-                        }
-                      >
-                        New Safety Audit
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/dashboard/review"
-                        className={({ isActive }) =>
-                          `block py-2 px-4 rounded-md text-base transition-colors ${
-                            isActive
-                              ? 'bg-gray-100 text-gray-900 font-semibold'
-                              : 'text-gray-800 font-normal hover:bg-gray-100'
-                          }`
-                        }
-                      >
-                        Review
-                      </NavLink>
-                    </li>
-                    <li>
-                      <NavLink
-                        to="/dashboard/analytics"
-                        className={({ isActive }) =>
-                          `block py-2 px-4 rounded-md text-base transition-colors ${
-                            isActive
-                              ? 'bg-gray-100 text-gray-900 font-semibold'
-                              : 'text-gray-800 font-normal hover:bg-gray-100'
-                          }`
-                        }
-                      >
-                        Analytics
-                      </NavLink>
-                    </li>
-                  </ul>
-                )}
-              </li>
+              {sidebarSections.map(section => {
+                const sectionActive = isSectionActive(section);
+                return (
+                  <li key={section.label}>
+                    <button
+                      className={`flex items-center w-full py-2 ${isOpen ? 'px-4' : 'justify-center'} rounded-md text-sm font-medium transition-colors ${
+                        sectionActive ? 'bg-custom-gradient text-white' : 'text-gray-700 hover:bg-gray-100'
+                      }`}
+                      onClick={() => isOpen && setOpenSections(s => ({ ...s, [section.label]: !s[section.label] }))}
+                    >
+                      <span className={isOpen ? 'mr-3' : ''}>
+                        {section.icon ? (
+                          <i className={
+                            section.icon + ' ' + (sectionActive ? 'text-white' : 'text-black')
+                          }></i>
+                        ) : null}
+                      </span>
+                      {isOpen && <span>{section.label}</span>}
+                      {isOpen && <span className="ml-auto">{openSections[section.label] ? '▾' : '▸'}</span>}
+                    </button>
+                    {isOpen && openSections[section.label] && (
+                      <ul className="ml-6 mt-1 space-y-1">
+                        {section.subItems.map(item => (
+                          <li key={item.path}>
+                            <NavLink
+                              to={item.path}
+                              className={({ isActive }) =>
+                                `block py-2 px-4 rounded-md text-sm transition-colors ${
+                                  isActive
+                                    ? 'bg-gray-100 text-gray-900 font-semibold'
+                                    : 'text-gray-800 font-normal hover:bg-gray-100'
+                                }`
+                              }
+                            >
+                              {item.label}
+                            </NavLink>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </nav>
         </div>
