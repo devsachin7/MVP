@@ -1,11 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../../../components/Card';
+import ProjectInformation from '../components/ProjectInformation';
 
 const ReviewAudit: React.FC = () => {
+  const navigate = useNavigate();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    navigate('/safety-audit/review-audit-details');
+  };
   return (
-    <div className="py-6 space-y-6">
+    <div className="py-6 space-y-6">      
       <Card title="Review">
-        <form className="p-8">
+        <form className="p-8" onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div className="sm:flex sm:items-center gap-x-3">
               <label className="block text-sm font-semibold mb-1 min-w-[120px]">Project:</label>

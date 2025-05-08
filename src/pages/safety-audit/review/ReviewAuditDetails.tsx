@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import Card from '../../../components/Card';
+import ProjectInformation from '../components/ProjectInformation';
+import AuditSummary from '../components/AuditSummary';
+import SeverityLevels from '../components/SeverityLevels';
+import AuditCategories from '../components/AuditCategories';
 
-import ProjectInformation from './components/ProjectInformation';
-import AuditSummary from './components/AuditSummary';
-import SeverityLevels from './components/SeverityLevels';
-import AuditCategories from './components/AuditCategories';
-import Card from '../../components/Card';
-
-const NewSafetyAudit2: React.FC = () => {
+const ReviewAuditDetails: React.FC = () => {
   const [violations, setViolations] = useState([
     {
       category: '',
@@ -75,4 +74,4 @@ const NewSafetyAudit2: React.FC = () => {
   );
 };
 
-export default NewSafetyAudit2; 
+export default ReviewAuditDetails; 
