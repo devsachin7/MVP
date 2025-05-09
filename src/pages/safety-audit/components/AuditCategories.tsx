@@ -23,6 +23,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
   return (
     <div className="mb-6" key={field.id}>
       <div className="font-semibold mb-2">Violation {index + 1}</div>
+
       <div className="mb-2">
         <div className="mb-4">
           <FormSelect
@@ -67,6 +68,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
           />
         </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-2 mt-6">
         <div className="flex flex-col w-full">
           <div
@@ -148,6 +150,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
           </div>
         </div>
       </div>
+
       <FormInput
         name={`auditCategory.${index}.comments`}
         control={control}
@@ -158,6 +161,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
         rows={3}
       />
       <div className="mb-6"></div>
+      
       <div className="flex justify-end gap-2">
         {index > 0 && (
           <button
