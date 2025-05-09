@@ -10,6 +10,7 @@ export const defaultValAuditCategory = {
   };
   
   export const defaultValSafetyAudit = {
+    auditDate: "",
     coAuditor1: "",
     coAuditor2: "",
     notes: "",

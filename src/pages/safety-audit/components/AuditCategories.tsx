@@ -18,7 +18,22 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
   append,
   remove,
 }) => {
-  const { control } = useFormContext();
+  const { control, setValue, getValues } = useFormContext();
+  const violationCount = getValues().auditCategory[index].noOfViolations;
+  const severityLevelCount = getValues().auditCategory[index].severityLevel;
+  const {pointsDeduction, score, scorePctg, boxBgColor} = calculateScore(
+    +violationCount,
+    +severityLevelCount,
+    1,
+  );
+
+  setValue(
+    `auditCategory.${index}.pointDeductions`,
+    pointsDeduction.toString(),
+  );
+
+  setValue(`auditCategory.${index}.sectionScore`, score.toString());
+
 
   return (
     <div className="mb-6" key={field.id}>
@@ -139,12 +154,12 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
               <div
                 className="h-3 rounded absolute left-0 top-0"
                 style={{
-                  width: `${100}%`,
-                  background: '#0C9D3A'
+                  width: `${scorePctg}%`,
+                  background: boxBgColor
                 }}
               />
               <span className="text-xs font-semibold text-white z-10 w-full text-center absolute left-0 top-0 flex items-center justify-center h-3">
-                {"100"}%
+                {scorePctg}%
               </span>
             </div>
           </div>
@@ -161,7 +176,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
         rows={3}
       />
       <div className="mb-6"></div>
-      
+
       <div className="flex justify-end gap-2">
         {index > 0 && (
           <button
