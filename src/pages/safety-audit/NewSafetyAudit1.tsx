@@ -10,7 +10,7 @@ const NewSafetyAudit1: React.FC = () => {
   };
   return (
     <div className="py-6">
-      <Card title="New Safety Audit 1">
+      <Card title="New Safety Audit">
         <h6 className="text-base font-semibold text-gray-800 mb-4">
           Beginning of Safety Audit
         </h6>
