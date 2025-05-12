@@ -19,12 +19,11 @@ const sidebarSections = [
     ],
   },
   {
-    label: 'Other Module',
+    label: 'Administration',
     icon: 'icon-LE-user text-xl',
-    basePath: '/user-management',
+    basePath: '/administration',
     subItems: [
-      { label: 'Add New User', path: '/user-management/add-new-user' },
-      { label: 'All Users', path: '/user-management/all-users' },
+      { label: 'Add New User', path: '/administration/user-management' },
     ],
   },
   // Add more sections as needed
