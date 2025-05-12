@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import Card from "../../../components/Card";
 import Table from "../../../components/Table";
 import { Column } from "../../../types/table";
 import Modal from "../../../components/Modal";
 import AddUserForm from "./AddUserForm";
+import Card from "../../../components/Card";
 
 type UserManagementProps = Record<string, unknown>;
 
@@ -38,24 +38,31 @@ const UserManagement: React.FC<UserManagementProps> = () => {
 
     return (
         <Card title="Users">
-            <div>
-                <div className="flex justify-between items-center mb-4">
-                    <h2 className="text-2xl font-bold">User Management</h2>
+          
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+                <div className="flex items-center gap-2">
+                    <input type="text" placeholder="" className="border border-gray-300 rounded px-3 py-2 w-56 focus:outline-none focus:ring-2 focus:ring-red-200" />
                     <button
                         onClick={() => setIsModalOpen(true)}
-                        className="btn-black btn-sm"
+                        className="bg-black text-white rounded px-5 py-2 font-semibold text-sm hover:bg-gray-800 transition"
                     >
-                        Add New User
+                        Add User
                     </button>
                 </div>
-                <Table columns={columns} data={users} />
-
-
-                <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New User">
-                    {/* <div> Hello from User Management</div> */}
-                    <AddUserForm onAdd={handleAddUser} onClose={() => setIsModalOpen(false)} />
-                </Modal>
+                <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-700">Show</span>
+                    <select className="border border-gray-300 rounded px-2 py-1 text-sm">
+                        <option>10</option>
+                        <option>25</option>
+                        <option>50</option>
+                    </select>
+                    <span className="text-sm text-gray-700">Entries</span>
+                </div>
             </div>
+            <Table columns={columns} data={users} />
+            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New User">
+                <AddUserForm onAdd={handleAddUser} onClose={() => setIsModalOpen(false)} />
+            </Modal>
         </Card>
     );
 };
