@@ -1,10 +1,15 @@
+import React from "react";
 import { useFormContext } from "react-hook-form";
 import FormInput from "../../../components/form-components/FormInput";
 import FormSelect from "../../../components/form-components/FormSelect";
 import FormDatePicker from "../../../components/form-components/FormDatePicker";
 import { getEMF } from "../utils/safetyAuditUtils";
 
-const AuditSummary = () => {
+interface AuditSummaryProps {
+  isReview?: boolean;
+}
+
+const AuditSummary: React.FC<AuditSummaryProps> = ({isReview}) => {
   const { setValue, watch } = useFormContext();
   const workForceCount = watch("workForce");
   const emfVal = getEMF(+workForceCount);
@@ -12,9 +17,7 @@ const AuditSummary = () => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-4">
-      {/* Keep date input as is */}
-      <FormDatePicker name="auditDate" label="Audit Date" />
-      {/* Text display */}
+      <FormDatePicker name="auditDate" label="Audit Date" disabled={Boolean(isReview)} />
       <div className="sm:flex sm:items-center gap-x-3">
         <label className="block text-sm font-semibold mb-1 min-w-[120px]">
           Audit By:
@@ -32,6 +35,7 @@ const AuditSummary = () => {
           { value: "user3", label: "Alex Johnson" },
         ]}
         placeholder="Select"
+        disabled={Boolean(isReview)}
       />
       <FormSelect
         name="coAuditor2"
@@ -43,6 +47,7 @@ const AuditSummary = () => {
           { value: "user3", label: "Alex Johnson" },
         ]}
         placeholder="Select"
+        disabled={Boolean(isReview)}
       />
 
       <FormInput
@@ -53,6 +58,7 @@ const AuditSummary = () => {
         multiline
         rows={4}
         placeholder="Enter notes here..."
+        disabled={Boolean(isReview)}
       />
 
       <div className="md:col-span-2 flex flex-col sm:flex-row sm:items-center gap-3">
@@ -61,6 +67,7 @@ const AuditSummary = () => {
           label="Workforce"
           labelWidth="min-w-[120px]"
           className="flex-1"
+          disabled={Boolean(isReview)}
         />
         <FormInput
           name="emf"
@@ -75,13 +82,13 @@ const AuditSummary = () => {
             Safety Score:
           </label>
           <div
-            className="flex flex-col items-center gap-2 w-full"
+            className="flex flex-col items-center gap-2 w-full mt-4"
           >
             <input
               type="text"
               value="150/150"
               disabled
-              className="w-24 border border-gray-300 rounded px-4 py-1 bg-gray-100 text-gray-500"
+              className="w-full border border-gray-300 rounded px-4 py-1 bg-gray-100 text-gray-500"
             />
             <div className="h-3 rounded relative w-full bg-gray-200">
               <div
