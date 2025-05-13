@@ -64,7 +64,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         fullWidth ? "md:col-span-2" : ""
       } sm:flex sm:items-center gap-x-3 ${className}`}
     >
-      {label && <label className={`block text-sm font-semibold mb-1 ${labelWidth}`}>
+      {label && <label className={`block text-base font-semibold mb-1 ${labelWidth}`}>
         {label}:
       </label>}
       <div className="flex-1 w-full relative" ref={dropdownRef}>
