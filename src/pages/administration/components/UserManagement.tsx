@@ -9,6 +9,8 @@ type UserManagementProps = Record<string, unknown>;
 
 const UserManagement: React.FC<UserManagementProps> = () => {
     const [users, setUsers] = useState([]);
+    const [entriesPerPage, setEntriesPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(1);
     const [columns, setColumns] = useState<Column[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -19,7 +21,7 @@ const UserManagement: React.FC<UserManagementProps> = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch("https://jsonplaceholder.typicode.com/todos");
+            const response = await fetch("https://jsonplaceholder.typicode.com/posts");
             const json = await response.json();
 
             if (json && json.length > 0) {
@@ -36,6 +38,12 @@ const UserManagement: React.FC<UserManagementProps> = () => {
         fetchData();
     }, []);
 
+    // Calculate paginated users
+    const paginatedUsers = users.slice(
+        (currentPage - 1) * entriesPerPage,
+        currentPage * entriesPerPage
+    );
+
     return (
         <Card title="Users">
           
@@ -51,15 +59,22 @@ const UserManagement: React.FC<UserManagementProps> = () => {
                 </div>
                 <div className="flex items-center gap-2">
                     <span className="text-sm text-gray-700">Show</span>
-                    <select className="border border-gray-300 rounded px-2 py-1 text-sm">
-                        <option>10</option>
-                        <option>25</option>
-                        <option>50</option>
+                    <select
+                        className="border border-gray-300 rounded px-2 py-1 text-sm"
+                        value={entriesPerPage}
+                        onChange={e => {
+                            setEntriesPerPage(Number(e.target.value));
+                            setCurrentPage(1);
+                        }}
+                    >
+                        <option value={10}>10</option>
+                        <option value={25}>25</option>
+                        <option value={50}>50</option>
                     </select>
                     <span className="text-sm text-gray-700">Entries</span>
                 </div>
             </div>
-            <Table columns={columns} data={users} />
+            <Table columns={columns} data={paginatedUsers} />
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New User">
                 <AddUserForm onAdd={handleAddUser} onClose={() => setIsModalOpen(false)} />
             </Modal>
