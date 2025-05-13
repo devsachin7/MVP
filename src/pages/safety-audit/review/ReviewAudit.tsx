@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Card from "../../../components/Card";
 import { Input } from "../../../components/form-components/Input";
 import { Select } from "../../../components/form-components/Select";
+import {
+  MultiSelect,
+  MultiSelectOption,
+} from "../../../components/form-components/MultiSelect";
 
 const ZONES = [
   "Zone -1",
@@ -21,52 +25,47 @@ const ENTRIES = [
   { value: "100", label: "100" },
 ];
 
+const zoneOptions: MultiSelectOption[] = ZONES.map((zone) => ({
+  value: zone,
+  label: zone,
+}));
+
 const ReviewAudit: React.FC = () => {
   const navigate = useNavigate();
   const [selectedZones, setSelectedZones] = useState<string[]>([]);
-  const [zoneDropdownOpen, setZoneDropdownOpen] = useState(false);
   const [dateFilter, setDateFilter] = useState("");
-  const [dateDropdownOpen, setDateDropdownOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [showEntries, setShowEntries] = useState(10);
 
-  const handleZoneToggle = (zone: string) => {
-    setSelectedZones((zones) =>
-      zones.includes(zone) ? zones.filter((z) => z !== zone) : [...zones, zone]
-    );
-  };
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/safety-audit/review-audit-details');
-  }
+    navigate("/safety-audit/review-audit-details");
+  };
 
   const renderReviewTable = () => (
     <div className="overflow-x-auto">
-        <table className="min-w-full text-sm border-t">
-          <thead>
-            <tr className="bg-gray-100 text-gray-700">
-              <th className="px-4 py-2 font-semibold text-left">Zone</th>
-              <th className="px-4 py-2 font-semibold text-left">Auditor</th>
-              <th className="px-4 py-2 font-semibold text-left">Co-Auditor1</th>
-              <th className="px-4 py-2 font-semibold text-left">Co-Auditor2</th>
-              <th className="px-4 py-2 font-semibold text-left">
-                Activity Date
-              </th>
-              <th className="px-4 py-2 font-semibold text-left">Audit Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {/* No data row */}
-            <tr>
-              <td colSpan={6} className="text-center text-gray-400 py-8">
-                No data available
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-  )
+      <table className="min-w-full text-sm border-t">
+        <thead>
+          <tr className="bg-gray-100 text-gray-700">
+            <th className="px-4 py-2 font-semibold text-left">Zone</th>
+            <th className="px-4 py-2 font-semibold text-left">Auditor</th>
+            <th className="px-4 py-2 font-semibold text-left">Co-Auditor1</th>
+            <th className="px-4 py-2 font-semibold text-left">Co-Auditor2</th>
+            <th className="px-4 py-2 font-semibold text-left">Activity Date</th>
+            <th className="px-4 py-2 font-semibold text-left">Audit Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* No data row */}
+          <tr>
+            <td colSpan={6} className="text-center text-gray-400 py-8">
+              No data available
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
 
   return (
     <div className="py-6 space-y-6">
@@ -81,71 +80,28 @@ const ReviewAudit: React.FC = () => {
                 value="123"
                 disabled
               />
-              <div className="sm:flex sm:items-center gap-x-3 relative">
-                <label className="block text-base font-semibold mb-1 min-w-[120px]">
-                  Select a Zone:
-                </label>
-                <div className="flex-1 w-full">
-                  <button
-                    type="button"
-                    className="w-full border border-gray-300 rounded px-2 py-1 text-left bg-white placeholder:text-gray-400 text-base"
-                    onClick={() => setZoneDropdownOpen((open) => !open)}
-                  >
-                    {selectedZones.length === 0
-                      ? "Select"
-                      : selectedZones.join(", ")}
-                  </button>
-                  {zoneDropdownOpen && (
-                    <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow">
-                      {ZONES.map((zone) => (
-                        <label
-                          key={zone}
-                          className="flex items-center px-2 py-1 cursor-pointer"
-                        >
-                          <input
-                            type="checkbox"
-                            checked={selectedZones.includes(zone)}
-                            onChange={() => handleZoneToggle(zone)}
-                            className="mr-2"
-                          />
-                          {zone}
-                        </label>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
+              <MultiSelect
+                label="Zones"
+                value={selectedZones}
+                onChange={setSelectedZones}
+                options={zoneOptions}
+                placeholder="Select"
+              />
             </div>
             <div className="space-y-4 flex flex-col items-end">
               <div className="sm:flex sm:items-center gap-x-3 relative w-full justify-end">
-                <label className="block text-base font-semibold mb-1 min-w-[120px] text-right">
-                  Date filter:
-                </label>
-                <div className="flex-1 w-full max-w-xs">
-                  <button
-                    type="button"
-                    className="w-full border border-gray-300 rounded px-2 py-1 text-left bg-white placeholder:text-gray-400 text-base"
-                    onClick={() => setDateDropdownOpen((open) => !open)}
-                  >
-                    {dateFilter || "Select"}
-                  </button>
-                  {dateDropdownOpen && (
-                    <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow ">
-                      {DATE_FILTERS.map((opt) => (
-                        <div
-                          key={opt}
-                          className="px-2 py-1 cursor-pointer hover:bg-gray-100"
-                          onClick={() => {
-                            setDateFilter(opt);
-                            setDateDropdownOpen(false);
-                          }}
-                        >
-                          {opt}
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+                <Select
+                  label="Date filter"
+                  labelWidth="min-w-[120px] text-right"
+                  className="flex-1 w-full max-w-xs"
+                  value={dateFilter}
+                  onChange={(e) => setDateFilter(e.target.value)}
+                  options={DATE_FILTERS.map((filter) => ({
+                    value: filter,
+                    label: filter,
+                  }))}
+                  placeholder="Select"
+                />
               </div>
               <div className="flex justify-end w-full">
                 <button
