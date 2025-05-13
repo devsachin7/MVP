@@ -43,7 +43,7 @@ const Table: React.FC<DynamicTableProps> = ({ columns, data }) => {
   return (
     <div className="rounded-xl overflow-hidden shadow bg-white">
       <table className="min-w-full table-auto text-left border-collapse">
-        <thead className="bg-gray-100">
+        <thead className="table-bg">
           <tr>
             {columns.map((col) => (
               <th
@@ -80,25 +80,17 @@ const Table: React.FC<DynamicTableProps> = ({ columns, data }) => {
               <tr key={index} className="hover:bg-gray-50 border-b border-gray-200 last:border-b-0">
                 {columns.map((col) => {
                   const cellValue = row[col.key];
+                  const cellClass = "px-4 py-3 text-sm text-gray-700";
                   if (col.key === 'action') {
                     return (
-                      <td key={col.key} className="px-6 py-3 text-sm text-gray-700 max-w-xs truncate cursor-pointer" style={{ maxWidth: 180 }}>
+                      <td key={col.key} className={cellClass + " cursor-pointer"}>
                         <a href="#" className="text-blue-600 hover:underline">Edit</a>
                       </td>
                     );
                   }
-                  if (isNonNullString(cellValue)) {
-                    return (
-                      <td key={col.key} className="px-6 py-3 text-sm text-gray-700 max-w-xs truncate cursor-pointer" title={cellValue.length > 20 ? cellValue : undefined} style={{ maxWidth: 180 }}>
-                        <span className="truncate block" style={{ maxWidth: 160 }}>
-                          {cellValue.length > 20 ? `${cellValue.slice(0, 18)}...` : cellValue}
-                        </span>
-                      </td>
-                    );
-                  }
                   return (
-                    <td key={col.key} className="px-6 py-3 text-sm text-gray-700 max-w-xs truncate cursor-pointer" style={{ maxWidth: 180 }}>
-                      <span className="truncate block" style={{ maxWidth: 160 }}>
+                    <td key={col.key} className={cellClass}>
+                      <span title={isNonNullString(cellValue) && cellValue.length > 20 ? cellValue : undefined}>
                         {cellValue != null ? String(cellValue) : ''}
                       </span>
                     </td>

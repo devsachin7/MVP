@@ -13,3 +13,7 @@
 .btn-sm {
     @apply text-sm px-3 py-1;
 }
+
+.table-bg{
+    background-color: #E9E9E9;
+}
