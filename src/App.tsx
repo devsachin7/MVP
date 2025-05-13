@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { store } from './app/store';
 import ErrorBoundary from './components/ErrorBoundary';
 import AppRoutes from './routes/AppRoutes';
+import './styles/tailwind.css';
 
 const App: React.FC = () => {
   return (
