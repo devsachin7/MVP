@@ -10,6 +10,7 @@ interface AuditCategoriesProps {
   index: number;
   append: any;
   remove: any;
+  isReview?: boolean;
 }
 
 const AuditCategories: React.FC<AuditCategoriesProps> = ({
@@ -17,6 +18,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
   index,
   append,
   remove,
+  isReview
 }) => {
   const { control, setValue, getValues } = useFormContext();
   const violationCount = getValues().auditCategory[index].noOfViolations;
@@ -52,6 +54,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
               { value: "user3", label: "Alex Johnson" },
             ]}
             placeholder="Select"
+            disabled={Boolean(isReview)}
           />
         </div>
         <div className="mb-4">
@@ -66,6 +69,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
               { value: "user3", label: "Alex Johnson" },
             ]}
             placeholder="Select"
+            disabled={Boolean(isReview)}
           />
         </div>
         <div className="mb-4">
@@ -80,6 +84,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
               { value: "user3", label: "Alex Johnson" },
             ]}
             placeholder="Select"
+            disabled={Boolean(isReview)}
           />
         </div>
       </div>
@@ -174,10 +179,11 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
         fullWidth
         multiline
         rows={3}
+        disabled={Boolean(isReview)}
       />
       <div className="mb-6"></div>
 
-      <div className="flex justify-end gap-2">
+      {!isReview && <div className="flex justify-end gap-2">
         {index > 0 && (
           <button
             type="button"
@@ -194,7 +200,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
         >
           Add Row
         </button>
-      </div>
+      </div>}
     </div>
   );
 };

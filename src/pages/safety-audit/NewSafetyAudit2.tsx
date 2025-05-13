@@ -9,7 +9,11 @@ import {
   defaultValSafetyAudit,
 } from "./utils/defaultValues";
 
-const NewSafetyAudit2: React.FC = () => {
+interface NewSafetyAudit2Props {
+  isReview?: boolean;
+}
+
+const NewSafetyAudit2: React.FC<NewSafetyAudit2Props> = ({isReview}) => {
   const methods = useForm<any>({
     // To be replaced with proper interface
     defaultValues: defaultValSafetyAudit,
@@ -57,7 +61,7 @@ const NewSafetyAudit2: React.FC = () => {
           />
         </Card>
         <Card title="Audit Summary">
-          <AuditSummary />
+          <AuditSummary isReview={isReview} />
         </Card>
         <Card title="Severity Levels">
           <SeverityLevels />
@@ -65,6 +69,7 @@ const NewSafetyAudit2: React.FC = () => {
         <Card title="Audit Categories">
           {fields.map((field, index) => (
             <AuditCategories
+              isReview={isReview}
               key={field.id}
               field={field}
               index={index}
