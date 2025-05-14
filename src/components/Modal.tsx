@@ -24,9 +24,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title = '', children, si
 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
             <div  className={`w-full rounded-xl bg-white p-6 shadow-xl relative ${sizeMap[size]}`}>
-                {/* <button onClick={onClose} className="absolute top-2 right-3 text-xl text-gray-500 hover:text-red-500">
+                <button onClick={onClose} className="absolute top-2 right-3 text-xl text-gray-500 hover:text-red-500">
                     ×
-                </button> */}
+                </button>
                 {/* <div className="w-full"> */}
                 <Card title={title}>
                     {children}
