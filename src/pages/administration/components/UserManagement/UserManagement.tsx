@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import Table from "../../../components/Table";
-import { Column } from "../../../types/table";
-import Modal from "../../../components/Modal";
+import Table from "../../../../components/Table";
+import Modal from "../../../../components/Modal";
 import AddUserForm from "./AddUserForm";
-import Card from "../../../components/Card";
+import { Column } from "../../../../types/table";
+import Card from "../../../../components/Card";
+
 
 type UserManagementProps = Record<string, unknown>;
 

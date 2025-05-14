@@ -11,7 +11,8 @@ import NewSafetyAudit2 from '../pages/safety-audit/NewSafetyAudit2';
 import ReviewAuditDetails from '../pages/safety-audit/review/ReviewAuditDetails';
 import Dashboard from '../pages/Dashboard';
 import Login from '../pages/Login';
-import UserManagement from '../pages/administration/components/UserManagement';
+import UserManagement from '../pages/administration/components/UserManagement/UserManagement';
+import TradePartners from '../pages/administration/components/TradePartners/TradePartners';
 
 const AppRoutes: React.FC = () => (
   <Routes>
@@ -31,6 +32,7 @@ const AppRoutes: React.FC = () => (
       </Route>
       <Route path="administration">
         <Route path="user-management" element={<UserManagement/>} />
+        <Route path="trade-partners" element={<TradePartners/>} />
       </Route>
     </Route>
     <Route path="*" element={<PageNotFound />} />

@@ -2,8 +2,8 @@ import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import UserDetailsSection from "./add-user-form-sections/UserDetailsSection";
 import PermissionSection from "./add-user-form-sections/PermissionSection";
-import ProjectSection from "./add-user-form-sections/ProjectSection";
 import ZoneRoleAssignmentSection from "./add-user-form-sections/ZoneRoleAssignmentSection";
+import ProjectSection from "./add-user-form-sections/ProjectSection";
 
 interface AddUserFormProps {
     onAdd: (data: AddUserFormFields) => void;

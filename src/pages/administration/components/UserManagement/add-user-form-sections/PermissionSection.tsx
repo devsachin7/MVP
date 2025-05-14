@@ -1,6 +1,6 @@
 import React from "react";
 import { Control, Controller } from "react-hook-form";
-import FormSelect from "../../../../components/form-components/FormSelect";
+import FormSelect from "../../../../../components/form-components/FormSelect";
 
 interface PermissionSectionProps {
   control: Control<any>;

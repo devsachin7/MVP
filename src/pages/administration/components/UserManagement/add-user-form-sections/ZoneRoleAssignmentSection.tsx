@@ -1,6 +1,6 @@
 import React from "react";
 import { Control } from "react-hook-form";
-import FormSelect from "../../../../components/form-components/FormSelect";
+import FormSelect from "../../../../../components/form-components/FormSelect";
 
 interface ZoneRoleAssignmentSectionProps {
   control: Control<any>;
