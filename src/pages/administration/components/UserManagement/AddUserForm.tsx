@@ -8,6 +8,7 @@ import ProjectSection from "./add-user-form-sections/ProjectSection";
 interface AddUserFormProps {
     onAdd: (data: AddUserFormFields) => void;
     onClose: () => void;
+    editData?: Partial<AddUserFormFields>;
 }
 
 interface AddUserFormFields {
@@ -31,7 +32,7 @@ interface AddUserFormFields {
     projectRoleAssignment: string;
 }
 
-const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose }) => {
+const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose, editData }) => {
     const methods = useForm<AddUserFormFields>({
         defaultValues: {
             firstname: "",
@@ -52,6 +53,7 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose }) => {
             },
             isProjectRole: false,
             projectRoleAssignment: "",
+            ...editData,
         },
     });
 

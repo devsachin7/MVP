@@ -4,6 +4,8 @@ import { Column, UserData } from "../types/table";
 interface DynamicTableProps {
   columns: Column[];
   data: UserData[];
+  showAction?: boolean;
+  onEditRow?: (row: UserData) => void;
 }
 
 // Type guard for non-null string
@@ -11,9 +13,13 @@ function isNonNullString(val: unknown): val is string {
   return typeof val === 'string' && val !== null && val !== undefined;
 }
 
-const Table: React.FC<DynamicTableProps> = ({ columns, data }) => {
+const Table: React.FC<DynamicTableProps> = ({ columns, data, showAction, onEditRow }) => {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
+
+  const allColumns = showAction
+    ? [...columns, { key: 'action', label: 'Action' }]
+    : columns;
 
   // Sorting logic
   const sortedData = React.useMemo(() => {
@@ -45,7 +51,7 @@ const Table: React.FC<DynamicTableProps> = ({ columns, data }) => {
       <table className="min-w-full table-auto text-left border-collapse">
         <thead className="table-bg">
           <tr>
-            {columns.map((col) => (
+            {allColumns.map((col) => (
               <th
                 key={col.key}
                 className="px-6 py-3 text-xs font-bold uppercase tracking-wider text-gray-700 border-b border-gray-200 text-left select-none cursor-pointer"
@@ -78,13 +84,18 @@ const Table: React.FC<DynamicTableProps> = ({ columns, data }) => {
           ) : (
             sortedData?.map((row, index) => (
               <tr key={index} className="hover:bg-gray-50 border-b border-gray-200 last:border-b-0">
-                {columns.map((col) => {
+                {allColumns.map((col) => {
                   const cellValue = row[col.key];
                   const cellClass = "px-4 py-3 text-sm text-gray-700";
                   if (col.key === 'action') {
                     return (
                       <td key={col.key} className={cellClass + " cursor-pointer"}>
-                        <a href="#" className="text-blue-600 hover:underline">Edit</a>
+                        <button
+                          onClick={() => onEditRow && onEditRow(row)}
+                          className="text-blue-600 hover:underline"
+                        >
+                          Edit
+                        </button>
                       </td>
                     );
                   }

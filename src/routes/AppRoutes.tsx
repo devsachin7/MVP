@@ -6,7 +6,6 @@ import PageNotFound from '../components/PageNotFound';
 import NewSafetyAudit1 from '../pages/safety-audit/NewSafetyAudit1';
 import Review from '../pages/safety-audit/review';
 import Analytics from '../pages/Analytics';
-import AllUsers from '../pages/AllUsers';
 import NewSafetyAudit2 from '../pages/safety-audit/NewSafetyAudit2';
 import ReviewAuditDetails from '../pages/safety-audit/review/ReviewAuditDetails';
 import Dashboard from '../pages/Dashboard';
@@ -28,7 +27,7 @@ const AppRoutes: React.FC = () => (
         <Route path="analytics" element={<Analytics />} />
       </Route>
       <Route path="leadership-engagement">
-        <Route path="all-users" element={<AllUsers />} />
+        {/* <Route path="all-users" element={<AllUsers />} /> */}
       </Route>
       <Route path="administration">
         <Route path="user-management" element={<UserManagement/>} />

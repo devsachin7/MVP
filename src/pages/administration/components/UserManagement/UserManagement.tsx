@@ -14,11 +14,18 @@ const UserManagement: React.FC<UserManagementProps> = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [columns, setColumns] = useState<Column[]>([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [editRow, setEditRow] = useState(null);
+    
     const handleAddUser = (user: any) => {
         console.log("User added:", user);
         // setUsers((prev) => [...prev, user]);
     };
+
+    const handleEdit = (row: any) => {
+        setEditRow(row);
+        setEditModalOpen(true);
+      };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -75,9 +82,20 @@ const UserManagement: React.FC<UserManagementProps> = () => {
                     <span className="text-sm text-gray-700">Entries</span>
                 </div>
             </div>
-            <Table columns={columns} data={paginatedUsers} />
+            <Table columns={columns} data={paginatedUsers} showAction={true} onEditRow={handleEdit} />
+            
             <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add New User">
                 <AddUserForm onAdd={handleAddUser} onClose={() => setIsModalOpen(false)} />
+            </Modal>
+
+            <Modal isOpen={editModalOpen} onClose={() => setEditModalOpen(false)} title="Edit User">
+                {editRow && (
+                    <AddUserForm
+                        onAdd={handleAddUser}
+                        onClose={() => setEditModalOpen(false)}
+                        editData={editRow}
+                    />
+                )}
             </Modal>
         </Card>
     );
