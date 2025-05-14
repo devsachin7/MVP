@@ -19,10 +19,10 @@ const AuditSummary: React.FC<AuditSummaryProps> = ({isReview}) => {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 mb-4">
       <FormDatePicker name="auditDate" label="Audit Date" disabled={Boolean(isReview)} />
       <div className="sm:flex sm:items-center gap-x-3">
-        <label className="block text-sm font-semibold mb-1 min-w-[120px]">
+        <label className="block text-base font-semibold mb-1 min-w-[120px]">
           Audit By:
         </label>
-        <span className="text-sm">Rahul Deshmukh</span>
+        <span className="text-base">Rahul Deshmukh</span>
       </div>
 
       <FormSelect
@@ -78,24 +78,20 @@ const AuditSummary: React.FC<AuditSummaryProps> = ({isReview}) => {
         />
 
         <div className="sm:flex sm:items-center gap-x-3 flex-1">
-          <label className="block text-sm font-semibold mb-1 min-w-[100px]">
+          <label className="block text-base font-semibold mb-1 min-w-[110px]">
             Safety Score:
           </label>
           <div
-            className="flex flex-col items-center gap-2 w-full mt-4"
+            className="flex flex-col items-center gap-2 w-full mb-[-24px]"
           >
             <input
               type="text"
               value="150/150"
               disabled
-              className="w-full border border-gray-300 rounded px-4 py-1 bg-gray-100 text-gray-500"
+              className="w-full border border-gray-300 rounded h-[42px] px-4 py-1 bg-gray-100 text-gray-500"
             />
-            <div className="h-3 rounded relative w-full bg-gray-200">
-              <div
-                className="h-3 rounded absolute left-0 top-0 bg-green-600"
-                style={{ width: "100%" }}
-              />
-              <span className="text-xs font-semibold text-white z-10 w-full text-center absolute left-0 top-0 flex items-center justify-center h-3">
+            <div className="flex items-center justify-center h-[22px] rounded-lg relative w-full bg-green-600" style={{ width: "100%" }}>
+              <span className="text-xs font-semibold text-white z-10 w-full text-center items-center justify-center">
                 100%
               </span>
             </div>

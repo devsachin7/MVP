@@ -27,7 +27,7 @@ export const DatePicker: React.FC<InputProps> = ({
     <div
       className={`${fullWidth ? "md:col-span-2" : ""} sm:flex sm:items-center gap-x-3 ${className}`}
     >
-      {label && <label className={`block text-sm font-semibold mb-1 ${labelWidth}`}>
+      {label && <label className={`block text-base font-semibold mb-1 ${labelWidth}`}>
         {label}:
       </label>}
         <input
@@ -36,7 +36,7 @@ export const DatePicker: React.FC<InputProps> = ({
           onChange={onChange}
           disabled={disabled}
           placeholder={placeholder}
-          className={`flex-1 w-full border border-gray-300 rounded px-2 py-1 ${
+          className={`flex-1 w-full border border-gray-300 rounded h-[42px] px-2 py-1 ${
             disabled ? "bg-gray-100 text-gray-500" : ""
           }`}
           {...props}
