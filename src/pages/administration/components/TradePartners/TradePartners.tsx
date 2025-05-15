@@ -61,7 +61,7 @@ const TradePartners: React.FC = ()=>{
                         onClick={() => setIsModalOpen(true)}
                         className="bg-black text-white rounded px-5 py-2 font-semibold text-sm hover:bg-gray-800 transition"
                     >
-                        Add User
+                        Add Trade Partners
                     </button>
                 </div>
                 <div className="flex items-center gap-2">
