@@ -1,3 +1,27 @@
+import { MultiSelectOption } from "../components/form-components/MultiSelect";
+
+export const ZONES = [
+  "Zone -1",
+  "Zone -2",
+  "Zone -3",
+  "Zone -4",
+  "Zone -5",
+  "Zone -6",
+];
+export const DATE_FILTERS = ["30 Days", "60 Days", "90 Days", "1 Year"];
+export const ENTRIES = [
+  { value: "", label: "Select..." },
+  { value: "10", label: "10" },
+  { value: "25", label: "25" },
+  { value: "50", label: "50" },
+  { value: "100", label: "100" },
+];
+
+export const zoneOptions: MultiSelectOption[] = ZONES.map((zone) => ({
+  value: zone,
+  label: zone,
+}));
+
 export const calculateScore = (
   violationCount: number,
   severityLevelCount: number,

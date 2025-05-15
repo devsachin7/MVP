@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import FormInput from "../../../components/form-components/FormInput";
 import FormSelect from "../../../components/form-components/FormSelect";
 import FormDatePicker from "../../../components/form-components/FormDatePicker";
-import { getEMF } from "../utils/safetyAuditUtils";
+import { getEMF } from "../../../utils/safetyAuditUtils";
 
 interface AuditSummaryProps {
   isReview?: boolean;

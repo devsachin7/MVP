@@ -3,7 +3,7 @@ import { FieldArrayWithId, useFormContext } from "react-hook-form";
 import FormSelect from "../../../components/form-components/FormSelect";
 import FormInput from "../../../components/form-components/FormInput";
 import { defaultValAuditCategory } from "../utils/defaultValues";
-import { calculateScore } from "../utils/safetyAuditUtils";
+import { calculateScore } from "../../../utils/safetyAuditUtils";
 
 interface AuditCategoriesProps {
   field: FieldArrayWithId;
