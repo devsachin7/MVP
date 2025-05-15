@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useMsal } from '@azure/msal-react';
-import { dashboardApi, DashboardSummary, RecentActivity } from '../api/dashboard.api';
+// import { dashboardApi, DashboardSummary, RecentActivity } from '../api/dashboard.api';
 import { getUserInfo } from '../utils/auth';
 import Card from '../components/Card';
 
@@ -32,8 +32,8 @@ const Dashboard: React.FC = () => {
   }, [accounts, userName]);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [summaryData, setSummaryData] = useState<DashboardSummary | null>(null);
-  const [activities, setActivities] = useState<RecentActivity[]>([]);
+  // const [summaryData, setSummaryData] = useState<DashboardSummary | null>(null);
+  // const [activities, setActivities] = useState<RecentActivity[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -43,12 +43,12 @@ const Dashboard: React.FC = () => {
         setError(null);
 
         // Fetch dashboard summary data
-        const summaryResponse = await dashboardApi.getSummary();
-        setSummaryData(summaryResponse.data);
+        // const summaryResponse = await dashboardApi.getSummary();
+        // setSummaryData(summaryResponse.data);
 
         // Fetch recent activities
-        const activitiesResponse = await dashboardApi.getRecentActivity();
-        setActivities(activitiesResponse.data);
+        // const activitiesResponse = await dashboardApi.getRecentActivity();
+        // setActivities(activitiesResponse.data);
       } catch (err) {
         setError('Failed to load dashboard data. Please try again later.');
         console.error('Dashboard data fetch error:', err);

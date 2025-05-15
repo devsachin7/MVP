@@ -14,6 +14,10 @@
     @apply text-sm px-3 py-1;
 }
 
+.btn-md {
+    @apply text-base px-4 py-1;
+}
+
 .table-bg{
     background-color: #E9E9E9;
 }

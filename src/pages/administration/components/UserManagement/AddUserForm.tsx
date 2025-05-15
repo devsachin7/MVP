@@ -2,12 +2,13 @@ import React from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import UserDetailsSection from "./add-user-form-sections/UserDetailsSection";
 import PermissionSection from "./add-user-form-sections/PermissionSection";
-import ProjectSection from "./add-user-form-sections/ProjectSection";
 import ZoneRoleAssignmentSection from "./add-user-form-sections/ZoneRoleAssignmentSection";
+import ProjectSection from "./add-user-form-sections/ProjectSection";
 
 interface AddUserFormProps {
     onAdd: (data: AddUserFormFields) => void;
     onClose: () => void;
+    editData?: Partial<AddUserFormFields>;
 }
 
 interface AddUserFormFields {
@@ -31,7 +32,7 @@ interface AddUserFormFields {
     projectRoleAssignment: string;
 }
 
-const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose }) => {
+const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose, editData }) => {
     const methods = useForm<AddUserFormFields>({
         defaultValues: {
             firstname: "",
@@ -52,6 +53,7 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose }) => {
             },
             isProjectRole: false,
             projectRoleAssignment: "",
+            ...editData,
         },
     });
 
@@ -77,21 +79,21 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose }) => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <UserDetailsSection control={control} />
 
-                    <hr className="border-t-2 border-gray-300 my-4" />
+                    <hr className="border-t-2 border-gray-200 my-4" />
 
                     <PermissionSection control={control} />
 
-                    <hr className="border-t-2 border-gray-300 my-4" />
+                    <hr className="border-t-2 border-gray-200 my-4" />
 
                     <ProjectSection control={control} />
 
-                    <hr className="border-t-2 border-gray-300 my-4" />
+                    <hr className="border-t-2 border-gray-200 my-4" />
 
                     <ZoneRoleAssignmentSection control={control} />
 
                     <div className="col-span-1 md:col-span-2 flex justify-end mt-4">
-                        <button type="button" onClick={onClose} className="btn-white btn-sm mr-2">Cancel</button>
-                        <button type="submit" className="btn-black btn-sm">Save</button>
+                        <button type="button" onClick={onClose} className="btn-white btn-md mr-2">Cancel</button>
+                        <button type="submit" className="btn-black btn-md">Save</button>
                     </div>
                 </form>
             </FormProvider>

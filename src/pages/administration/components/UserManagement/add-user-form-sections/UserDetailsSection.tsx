@@ -1,6 +1,6 @@
 import React from "react";
 import { Control } from "react-hook-form";
-import FormInput from "../../../../components/form-components/FormInput";
+import FormInput from "../../../../../components/form-components/FormInput";
 
 interface UserDetailsSectionProps {
   // TODO: Type this properly with your form type

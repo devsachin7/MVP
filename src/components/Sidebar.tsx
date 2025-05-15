@@ -24,6 +24,7 @@ const sidebarSections = [
     basePath: '/administration',
     subItems: [
       { label: 'User Management', path: '/administration/user-management' },
+      { label: 'Trade Partners', path: '/administration/trade-partners' },
     ],
   },
   // Add more sections as needed
