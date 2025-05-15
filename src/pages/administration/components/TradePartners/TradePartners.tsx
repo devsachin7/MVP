@@ -55,8 +55,9 @@ const TradePartners: React.FC = ()=>{
     return(
         <Card title="Trade Partners">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
-                <div className="flex items-center gap-2">
-                    <input type="text" placeholder="" className="border border-gray-300 rounded px-3 py-2 w-56 focus:outline-none focus:ring-2 focus:ring-red-200" />
+                <div className="flex items-center gap-2 relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black font-normal text-sm icon-search" />
+                    <input type="text" placeholder="" className="border border-gray-300 rounded pl-10 pr-3 py-2 w-56 focus:outline-none focus:ring-2 focus:ring-red-200" />
                     <button
                         onClick={() => setIsModalOpen(true)}
                         className="bg-black text-white rounded px-5 py-2 font-semibold text-sm hover:bg-gray-800 transition"
@@ -84,11 +85,11 @@ const TradePartners: React.FC = ()=>{
 
             <Table columns={columns} data={paginatedUsers} showAction={true} onEditRow={handleEdit} />
             
-            <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Trade Partners Details">
+            <Modal isOpen={isModalOpen} title="Trade Partners Details" size="xxl">
                 <TradeForm onAdd={handleAddUser} onClose={() => setIsModalOpen(false)} />
             </Modal>
 
-            <Modal isOpen={editModalOpen} onClose={() => setEditModalOpen(false)} title="Trade Partners Details">
+            <Modal isOpen={editModalOpen}  title="Trade Partners Details" size="xxl">
                 {editRow && (
                     <TradeForm
                         onAdd={handleAddUser}

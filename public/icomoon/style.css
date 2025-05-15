@@ -437,6 +437,7 @@
 }
 .icon-search:before {
   content: "\e988";
+  color: inherit;
 }
 .icon-zoom-in:before {
   content: "\e989";
