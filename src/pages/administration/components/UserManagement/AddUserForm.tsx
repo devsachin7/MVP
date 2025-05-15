@@ -79,21 +79,21 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose, editData }) =
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <UserDetailsSection control={control} />
 
-                    <hr className="border-t-2 border-gray-300 my-4" />
+                    <hr className="border-t-2 border-gray-200 my-4" />
 
                     <PermissionSection control={control} />
 
-                    <hr className="border-t-2 border-gray-300 my-4" />
+                    <hr className="border-t-2 border-gray-200 my-4" />
 
                     <ProjectSection control={control} />
 
-                    <hr className="border-t-2 border-gray-300 my-4" />
+                    <hr className="border-t-2 border-gray-200 my-4" />
 
                     <ZoneRoleAssignmentSection control={control} />
 
                     <div className="col-span-1 md:col-span-2 flex justify-end mt-4">
-                        <button type="button" onClick={onClose} className="btn-white btn-sm mr-2">Cancel</button>
-                        <button type="submit" className="btn-black btn-sm">Save</button>
+                        <button type="button" onClick={onClose} className="btn-white btn-md mr-2">Cancel</button>
+                        <button type="submit" className="btn-black btn-md">Save</button>
                     </div>
                 </form>
             </FormProvider>

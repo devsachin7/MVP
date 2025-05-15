@@ -23,7 +23,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen,  title = '', children, size = "xl
     return ReactDOM.createPortal(
 
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-            <div  className={`w-full rounded-xl bg-white p-6 shadow-xl relative ${sizeMap[size]}`}>
+            <div  className={`w-full mx-4 sm:mx-8 rounded-xl bg-white p-6 shadow-xl relative ${sizeMap[size]} max-h-[90vh] overflow-y-auto`}>
               
                 {/* <div className="w-full"> */}
                 <Card title={title}>

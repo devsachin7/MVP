@@ -1,9 +1,10 @@
 import React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control, FieldValues } from "react-hook-form";
 import FormSelect from "../../../../../components/form-components/FormSelect";
+import FormToggle from "../../../../../components/form-components/FormToggle";
 
 interface PermissionSectionProps {
-  control: Control<any>;
+  control: Control<FieldValues>;
 }
 
 const PermissionSection: React.FC<PermissionSectionProps> = ({ control }) => (
@@ -21,22 +22,14 @@ const PermissionSection: React.FC<PermissionSectionProps> = ({ control }) => (
       control={control}
     />
     <div className="flex items-center gap-2 mt-2">
-      <label htmlFor="notificationsEnabled" className="font-medium text-sm text-gray-700">Is Active</label>
-      <Controller
-        name="notificationsEnabled"
-        control={control}
-        render={({ field: { value, onChange } }) => (
-          <button
-            type="button"
-            onClick={() => onChange(!value)}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none ${value ? ("bg-blue-600") : ("bg-gray-300")}`}
-          >
-            <span
-              className={`inline-block h-5 w-5 transform rounded-full bg-white shadow transition-transform duration-200 ${value ? 'translate-x-5' : 'translate-x-0'}`}
-            />
-          </button>
-        )}
-      />
+      <div className="flex items-center w-full">
+        <FormToggle
+          name="notificationsEnabled"
+          control={control}
+          label="Is Active"
+          labelClassName="font-semibold text-base text-gray-800 min-w-[120px]"
+        />
+      </div>
     </div>
   </div>
 );
