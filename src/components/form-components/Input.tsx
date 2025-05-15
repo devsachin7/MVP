@@ -57,7 +57,7 @@ export const Input: React.FC<InputProps> = ({
           onChange={onChange}
           disabled={disabled}
           placeholder={placeholder}
-          className={`flex-1 w-full border border-gray-300 rounded px-2 py-1 text-base ${
+          className={`flex-1 w-full border border-gray-300 rounded h-[42px] px-2 py-1 text-base ${
             disabled ? "bg-gray-100 text-gray-500" : ""
           }`}
           {...props}

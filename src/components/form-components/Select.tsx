@@ -36,7 +36,7 @@ export const Select: React.FC<SelectProps> = ({
         value={value}
         onChange={onChange}
         disabled={disabled}
-        className={`flex-1 w-full border border-gray-300 rounded px-2 py-1 ${
+        className={`flex-1 w-full border border-gray-300 rounded h-[42px] px-2 py-1 ${
           disabled ? "bg-gray-100 text-gray-500" : ""
         }`}
         {...props}

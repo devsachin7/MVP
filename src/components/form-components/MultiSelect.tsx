@@ -1,35 +1,34 @@
-import React, { useState, useEffect, useRef } from 'react';
-
+import React, { useState, useRef, useEffect } from 'react';
+import { CloseIcon } from '../icons/Close';
 export interface MultiSelectOption {
   value: string;
   label: string;
 }
 
-interface MultiSelectProps {
-  label?: string;
+export interface MultiSelectProps {
+  label: string;
   labelWidth?: string;
-  className?: string;
-  fullWidth?: boolean;
-  value?: string[];
+  value: string[];
   onChange: (value: string[]) => void;
   options: MultiSelectOption[];
-  disabled?: boolean;
   placeholder?: string;
-  [key: string]: any;
+  disabled?: boolean;
+  className?: string;
+  required?: boolean;
 }
 
 export const MultiSelect: React.FC<MultiSelectProps> = ({
   label,
-  labelWidth = "min-w-[120px]",
-  className = "",
-  fullWidth = false,
+  labelWidth = 'min-w-[120px]',
   value = [],
   onChange,
   options = [],
+  placeholder = 'Select',
   disabled = false,
-  placeholder = "Select"
+  className = '',
+  required = false,
 }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -45,58 +44,78 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     };
   }, []);
 
-  const handleToggle = (optionValue: string) => {
-    const newValue = Array.isArray(value) ? [...value] : [];
-    const index = newValue.indexOf(optionValue);
-    
-    if (index === -1) {
-      newValue.push(optionValue);
+  const toggleOption = (optionValue: string) => {
+    const isSelected = value.includes(optionValue);
+    if (isSelected) {
+      onChange(value.filter(v => v !== optionValue));
     } else {
-      newValue.splice(index, 1);
+      onChange([...value, optionValue]);
     }
-    
-    onChange(newValue);
+  };
+
+  const removeOption = (optionValue: string, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent dropdown from opening when removing an option
+    onChange(value.filter(v => v !== optionValue));
   };
 
   return (
-    <div
-      className={`${
-        fullWidth ? "md:col-span-2" : ""
-      } sm:flex sm:items-center gap-x-3 ${className}`}
-    >
-      {label && <label className={`block text-base font-semibold mb-1 ${labelWidth}`}>
-        {label}:
-      </label>}
-      <div className="flex-1 w-full relative" ref={dropdownRef}>
-        <button
-          type="button"
-          className={`w-full border border-gray-300 rounded px-2 py-1 text-left ${
-            disabled ? "bg-gray-100 text-gray-500" : "bg-white placeholder:text-gray-400 text-base"
+    <div className={`flex items-start ${className}`}>
+      {label && (
+        <label className={`${labelWidth} pt-2 block text-base font-semibold mb-1 flex-shrink-0`}>
+          {label}:
+          {required && <span className="text-red-500 ml-1">*</span>}
+        </label>
+      )}
+      <div className="flex-1 relative" ref={dropdownRef}>
+        <div
+          className={`border rounded-md px-3 py-2 flex flex-wrap gap-2 min-h-[42px] cursor-pointer ${
+            disabled ? 'bg-gray-100 cursor-not-allowed' : 'bg-white'
           }`}
           onClick={() => !disabled && setIsOpen(!isOpen)}
-          disabled={disabled}
         >
-          {value.length === 0
-            ? placeholder
-            : value.join(", ")}
-        </button>
+          {value.length === 0 ? (
+            <span className="text-gray-400">{placeholder}</span>
+          ) : (
+            value.map((selectedValue) => {
+              const option = options.find(opt => opt.value === selectedValue);
+              return option ? (
+                <div
+                  key={option.value}
+                  className="bg-gray-100 rounded-full px-3 py-1 flex items-center text-sm"
+                >
+                  <span>{option.label}</span>
+                  <span 
+                    className="ml-2 cursor-pointer"
+                    onClick={(e) => removeOption(option.value, e)}
+                  >
+                    <CloseIcon />
+                  </span>
+                </div>
+              ) : null;
+            })
+          )}
+        </div>
         
-        {isOpen && (
-          <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded shadow">
+        {isOpen && !disabled && (
+          <div className="absolute z-10 mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg max-h-60 overflow-auto">
             {options.map((option) => (
-              <label
+              <div
                 key={option.value}
-                className="flex items-center px-2 py-1 cursor-pointer hover:bg-gray-100"
+                className="flex items-center px-3 py-2 hover:bg-gray-100 cursor-pointer"
+                onClick={() => toggleOption(option.value)}
               >
                 <input
                   type="checkbox"
-                  checked={value.includes(option.value)}
-                  onChange={() => handleToggle(option.value)}
                   className="mr-2"
+                  checked={value.includes(option.value)}
+                  readOnly
                 />
-                {option.label}
-              </label>
+                <span>{option.label}</span>
+              </div>
             ))}
+            {options.length === 0 && (
+              <div className="px-3 py-2 text-gray-500">No options available</div>
+            )}
           </div>
         )}
       </div>
