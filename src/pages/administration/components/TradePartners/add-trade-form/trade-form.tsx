@@ -54,7 +54,6 @@ const TradeForm: React.FC<TradeFormProps> = ({ onAdd, onClose, editData }) => {
 
             <FormInput name="companyId" label="Company ID" placeholder="Enter company ID" className="flex-1" required control={control as any} />
             <FormInput name="contactName" label="First Name" placeholder="Enter contact name" className="flex-1" required control={control as any} />
-
             <FormSelect<TradeFormFields>
               name="tradePartnerTier"
               label="Trade Partner Tier"
