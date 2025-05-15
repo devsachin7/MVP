@@ -4,31 +4,9 @@ import Card from "../../../components/Card";
 import { Input } from "../../../components/form-components/Input";
 import { Select } from "../../../components/form-components/Select";
 import {
-  MultiSelect,
-  MultiSelectOption,
+  MultiSelect
 } from "../../../components/form-components/MultiSelect";
-
-const ZONES = [
-  "Zone -1",
-  "Zone -2",
-  "Zone -3",
-  "Zone -4",
-  "Zone -5",
-  "Zone -6",
-];
-const DATE_FILTERS = ["30 Days", "60 Days", "90 Days", "1 Year"];
-const ENTRIES = [
-  { value: "", label: "Select..." },
-  { value: "10", label: "10" },
-  { value: "25", label: "25" },
-  { value: "50", label: "50" },
-  { value: "100", label: "100" },
-];
-
-const zoneOptions: MultiSelectOption[] = ZONES.map((zone) => ({
-  value: zone,
-  label: zone,
-}));
+import { DATE_FILTERS, ENTRIES, zoneOptions } from "../../../utils/safetyAuditUtils";
 
 const ReviewAudit: React.FC = () => {
   const navigate = useNavigate();
@@ -70,7 +48,7 @@ const ReviewAudit: React.FC = () => {
   return (
     <div className="py-6 space-y-6">
       <Card title="Review">
-        <form className="p-8" onSubmit={handleSubmit}>
+        <form className="p-2" onSubmit={handleSubmit}>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             <div className="space-y-4">
               <Input
@@ -82,6 +60,7 @@ const ReviewAudit: React.FC = () => {
               />
               <MultiSelect
                 label="Zones"
+                labelWidth="min-w-[130px]"
                 value={selectedZones}
                 onChange={setSelectedZones}
                 options={zoneOptions}
@@ -89,11 +68,11 @@ const ReviewAudit: React.FC = () => {
               />
             </div>
             <div className="space-y-4 flex flex-col items-end">
-              <div className="sm:flex sm:items-center gap-x-3 relative w-full justify-end">
+              <div className="sm:flex sm:items-center relative w-full justify-end">
                 <Select
                   label="Date filter"
-                  labelWidth="min-w-[120px] text-right"
-                  className="flex-1 w-full max-w-xs"
+                  labelWidth="min-w-[120px]"
+                  className="flex-1 w-full max-w-sm"
                   value={dateFilter}
                   onChange={(e) => setDateFilter(e.target.value)}
                   options={DATE_FILTERS.map((filter) => ({

@@ -3,7 +3,7 @@ import { FieldArrayWithId, useFormContext } from "react-hook-form";
 import FormSelect from "../../../components/form-components/FormSelect";
 import FormInput from "../../../components/form-components/FormInput";
 import { defaultValAuditCategory } from "../utils/defaultValues";
-import { calculateScore } from "../utils/safetyAuditUtils";
+import { calculateScore } from "../../../utils/safetyAuditUtils";
 
 interface AuditCategoriesProps {
   field: FieldArrayWithId;
@@ -47,7 +47,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
             name={`auditCategory.${index}.category`}
             control={control}
             label="Category"
-            labelWidth="min-w-[125px]"
+            labelWidth="min-w-[144px]"
             options={[
               { value: "user1", label: "John Doe" },
               { value: "user2", label: "Jane Smith" },
@@ -62,7 +62,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
             name={`auditCategory.${index}.violationType`}
             control={control}
             label="Violation Type"
-            labelWidth="min-w-[125px]"
+            labelWidth="min-w-[144px]"
             options={[
               { value: "user1", label: "John Doe" },
               { value: "user2", label: "Jane Smith" },
@@ -77,7 +77,7 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
             name={`auditCategory.${index}.responsibleParty`}
             control={control}
             label="Responsible Party"
-            labelWidth="min-w-[125px]"
+            labelWidth="min-w-[144px]"
             options={[
               { value: "user1", label: "John Doe" },
               { value: "user2", label: "Jane Smith" },
@@ -155,15 +155,11 @@ const AuditCategories: React.FC<AuditCategoriesProps> = ({
               disabled
               readOnly
             />
-            <div className="h-3 rounded relative w-full bg-gray-200">
-              <div
-                className="h-3 rounded absolute left-0 top-0"
-                style={{
+            <div className="flex items-center justify-center h-[22px] rounded-lg relative w-full" style={{
                   width: `${scorePctg}%`,
                   background: boxBgColor
-                }}
-              />
-              <span className="text-xs font-semibold text-white z-10 w-full text-center absolute left-0 top-0 flex items-center justify-center h-3">
+                }}>
+              <span className="text-xs font-semibold text-white z-10 w-full text-center flex items-center justify-center">
                 {scorePctg}%
               </span>
             </div>
