@@ -6,7 +6,9 @@ export interface SelectProps {
   value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLSelectElement>;
   disabled?: boolean;
-  options: Array<{ value: string; label: string }>;
+  labelKey?: string;
+  valueKey?: string;
+  options: Array<any>;
   placeholder?: string;
   [key: string]: any;
 }
@@ -21,6 +23,8 @@ export const Select: React.FC<SelectProps> = ({
   disabled = false,
   options = [],
   placeholder = "Select",
+  labelKey = "label",
+  valueKey = "value",
   ...props
 }) => {
   return (
@@ -43,8 +47,8 @@ export const Select: React.FC<SelectProps> = ({
       >
         {placeholder && <option value="">{placeholder}</option>}
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
+          <option key={option[valueKey]} value={option[valueKey]}>
+            {option[labelKey]}
           </option>
         ))}
       </select>

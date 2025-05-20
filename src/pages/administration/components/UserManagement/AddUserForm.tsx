@@ -4,63 +4,49 @@ import UserDetailsSection from "./add-user-form-sections/UserDetailsSection";
 import PermissionSection from "./add-user-form-sections/PermissionSection";
 import ZoneRoleAssignmentSection from "./add-user-form-sections/ZoneRoleAssignmentSection";
 import ProjectSection from "./add-user-form-sections/ProjectSection";
+import { IProjectWithZones, IRole } from "../../../../api/user.api";
+import { IAddUserFormFields } from "../../../../utils/userUtils";
 
 interface AddUserFormProps {
-    onAdd: (data: AddUserFormFields) => void;
+    onAdd: (data: IAddUserFormFields) => void;
     onClose: () => void;
-    editData?: Partial<AddUserFormFields>;
+    editData?: Partial<IAddUserFormFields>;
+    projectRolesData: IRole[];
+    zoneRolesData: IRole[];
+    systemRolesData: IRole[];
+    projectWithZoneData: IProjectWithZones[];
 }
 
-interface AddUserFormFields {
-    firstname: string;
-    lastname: string;
-    email: string;
-    password: string;
-    phone: string;
-    title: string;
-    notificationsEnabled: boolean;
-    coAuditor1: string;
-    auditCategory: {
-        zone1: string;
-        zone2: string;
-        zone3: string;
-        zone4: string;
-        zone5: string;
-        zone6: string;
-    };
-    isProjectRole: boolean;
-    projectRoleAssignment: string;
-}
-
-const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose, editData }) => {
-    const methods = useForm<AddUserFormFields>({
+const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose, editData, projectRolesData, projectWithZoneData, zoneRolesData, systemRolesData }) => {
+    const methods = useForm<IAddUserFormFields>({
         defaultValues: {
-            firstname: "",
-            lastname: "",
+            firstName: "",
+            lastName: "",
             email: "",
             password: "",
-            phone: "",
+            mobileNumber: "",
             title: "",
-            notificationsEnabled: false,
-            coAuditor1: "",
-            auditCategory: {
-                zone1: "",
-                zone2: "",
-                zone3: "",
-                zone4: "",
-                zone5: "",
-                zone6: "",
+            isActive: false,
+            zoneRoles: {
+                "1": "",
+                "2": "",
+                "3": "",
+                "4": "",
+                "5": "",
+                "6": "",
             },
             isProjectRole: false,
-            projectRoleAssignment: "",
+            projectRoleId: "",
+            systemRole: "",
             ...editData,
         },
     });
 
     const { control, handleSubmit, reset } = methods;
 
-    const onSubmit = (data: AddUserFormFields) => {
-        if (data.firstname && data.email) {
+    const onSubmit = (data: IAddUserFormFields) => {
+        console.log("Form submitted:", data);
+        if (data.firstName && data.email) {
             onAdd(data);
             reset();
         }
@@ -81,15 +67,15 @@ const AddUserForm: React.FC<AddUserFormProps> = ({ onAdd, onClose, editData }) =
 
                     <hr className="border-t-2 border-gray-200 my-4" />
 
-                    <PermissionSection control={control} />
+                    <PermissionSection control={control} systemRolesData={systemRolesData} />
 
                     <hr className="border-t-2 border-gray-200 my-4" />
 
-                    <ProjectSection control={control} />
+                    <ProjectSection control={control} projectRolesData={projectRolesData} projectWithZoneData={projectWithZoneData} />
 
                     <hr className="border-t-2 border-gray-200 my-4" />
 
-                    <ZoneRoleAssignmentSection control={control} />
+                    <ZoneRoleAssignmentSection control={control} zoneRolesData={zoneRolesData} projectWithZoneData={projectWithZoneData} />
 
                     <div className="col-span-1 md:col-span-2 flex justify-end mt-4">
                         <button type="button" onClick={onClose} className="btn-white btn-md mr-2">Cancel</button>

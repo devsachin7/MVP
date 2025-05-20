@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Column, UserData } from "../types/table";
+import { Column } from "../types/table";
 
 interface DynamicTableProps {
   columns: Column[];
-  data: UserData[];
+  data: any[];
   showAction?: boolean;
-  onEditRow?: (row: UserData) => void;
+  onEditRow?: (row: any) => void;
 }
 
 // Type guard for non-null string

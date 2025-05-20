@@ -1,17 +1,21 @@
 import React from "react";
-import { Control, Controller } from "react-hook-form";
+import { Control } from "react-hook-form";
 import FormSelect from "../../../../../components/form-components/FormSelect";
 import FormToggle from "../../../../../components/form-components/FormToggle";
+import { IRole, IProjectWithZones } from "../../../../../api/user.api";
+import { Input } from "../../../../../components/form-components/Input";
 
 interface ProjectSectionProps {
   control: Control<any>;
+  projectRolesData: IRole[];
+  projectWithZoneData: IProjectWithZones[];
 }
 
-const ProjectSection: React.FC<ProjectSectionProps> = ({ control }) => (
+const ProjectSection: React.FC<ProjectSectionProps> = ({ control, projectRolesData, projectWithZoneData }) => {  
+  return(
   <>
-    <div className="flex items-center gap-x-3 mb-4">
-      <label className="block font-semibold text-base text-gray-800 min-w-[120px]">Project:</label>
-      <input type="text" value="123" disabled className="w-1/4 border border-gray-300 rounded px-2 py-1" />
+    <div className="flex items-center mb-4 w-1/2 pr-4">
+      <Input label="Project" labelWidth="min-w-[120px]" value={projectWithZoneData?.[0]?.projectName} disabled className="w-full" />
     </div>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4 items-end">
       <div className="flex items-center gap-x-3">
@@ -25,21 +29,19 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ control }) => (
         </div>
       </div>
       <div className="flex items-center gap-x-3">
-        <label className="block font-semibold text-base text-gray-800 min-w-[120px]">Project Role Assignment</label>
         <FormSelect
-          name="projectRoleAssignment"
+          name="projectRoleId"
           control={control}
-          options={[
-            { value: '', label: 'Select Role' },
-            { value: 'admin', label: 'Admin' },
-            { value: 'manager', label: 'Manager' },
-            { value: 'auditor', label: 'Auditor' },
-          ]}
+          label={"Project Role Assignment"}
+          labelWidth="min-w-[120px]"
+          options={projectRolesData ?? []}
           className="w-full"
+          labelKey="name"
+          valueKey="id"
         />
       </div>
     </div>
   </>
-);
+)};
 
 export default ProjectSection; 

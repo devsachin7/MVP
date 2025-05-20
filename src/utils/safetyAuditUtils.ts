@@ -17,6 +17,15 @@ export const ENTRIES = [
   { value: "100", label: "100" },
 ];
 
+export const zones = [
+  { name: "zone1", label: "Zone-1" },
+  { name: "zone2", label: "Zone-2" },
+  { name: "zone3", label: "Zone-3" },
+  { name: "zone4", label: "Zone-4" },
+  { name: "zone5", label: "Zone-5" },
+  { name: "zone6", label: "Zone-6" },
+];
+
 export const zoneOptions: MultiSelectOption[] = ZONES.map((zone) => ({
   value: zone,
   label: zone,

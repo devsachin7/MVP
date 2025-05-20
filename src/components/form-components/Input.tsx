@@ -46,7 +46,7 @@ export const Input: React.FC<InputProps> = ({
           placeholder={placeholder}
           rows={rows}
           className={`flex-1 w-full border border-gray-300 rounded px-2 py-1 ${
-            disabled ? "bg-gray-100 text-gray-500" : ""
+            disabled ? "bg-gray-100 text-[#666666]" : ""
           }`}
           {...props}
         />
@@ -58,7 +58,7 @@ export const Input: React.FC<InputProps> = ({
           disabled={disabled}
           placeholder={placeholder}
           className={`flex-1 w-full border border-gray-300 rounded h-[42px] px-2 py-1 text-base ${
-            disabled ? "bg-gray-100 text-gray-500" : ""
+            disabled ? "bg-gray-100 text-[#666666]" : ""
           }`}
           {...props}
         />
