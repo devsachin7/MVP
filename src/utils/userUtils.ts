@@ -26,6 +26,7 @@ export interface IAddUserFormFields {
   isProjectRole: boolean;
   projectRoleId: string;
   systemRole: string;
+  profilePhotoUrl?: string;
 }
 
 export const parseUserFields = (users: IUser[]): IParsedUser[] => {

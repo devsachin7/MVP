@@ -61,5 +61,12 @@ export const userManagementApi = {
   },
   addUsers: (payload: IUser): Promise<ApiResponse<any>> => {
     return apiService.post<IUser>(PATHS.getUsers, payload);
+  },
+  uploadUserPhoto: (formData: FormData): Promise<ApiResponse<any>> => {
+    return apiService.post<any>(PATHS.uploadUserPhoto, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 };

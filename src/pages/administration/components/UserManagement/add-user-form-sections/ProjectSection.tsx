@@ -1,17 +1,15 @@
 import React from "react";
-import { Control } from "react-hook-form";
 import FormSelect from "../../../../../components/form-components/FormSelect";
 import FormToggle from "../../../../../components/form-components/FormToggle";
 import { IRole, IProjectWithZones } from "../../../../../api/user.api";
 import { Input } from "../../../../../components/form-components/Input";
 
 interface ProjectSectionProps {
-  control: Control<any>;
   projectRolesData: IRole[];
   projectWithZoneData: IProjectWithZones[];
 }
 
-const ProjectSection: React.FC<ProjectSectionProps> = ({ control, projectRolesData, projectWithZoneData }) => {  
+const ProjectSection: React.FC<ProjectSectionProps> = ({ projectRolesData, projectWithZoneData }) => {  
   return(
   <>
     <div className="flex items-center mb-4 w-1/2 pr-4">
@@ -22,7 +20,6 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ control, projectRolesDa
         <div className="flex items-center w-full">
           <FormToggle
             name="isProjectRole"
-            control={control}
             label="Is Project Role"
             labelClassName="font-semibold text-base text-gray-800 min-w-[120px]"
           />
@@ -31,7 +28,6 @@ const ProjectSection: React.FC<ProjectSectionProps> = ({ control, projectRolesDa
       <div className="flex items-center gap-x-3">
         <FormSelect
           name="projectRoleId"
-          control={control}
           label={"Project Role Assignment"}
           labelWidth="min-w-[120px]"
           options={projectRolesData ?? []}
